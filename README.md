@@ -1,14 +1,14 @@
 # Fastify Type Provider Zod
 
-[![NPM Version](https://img.shields.io/npm/v/fastify-type-provider-zod.svg)](https://npmjs.org/package/fastify-type-provider-zod)
-[![NPM Downloads](https://img.shields.io/npm/dm/fastify-type-provider-zod.svg)](https://npmjs.org/package/fastify-type-provider-zod)
-[![Build Status](https://github.com//turkerdev/fastify-type-provider-zod/workflows/CI/badge.svg)](https://github.com//turkerdev/fastify-type-provider-zod/actions)
+[![NPM Version](https://img.shields.io/npm/v/fastify-type-provider-effect-schema.svg)](https://npmjs.org/package/fastify-type-provider-effect-schema)
+[![NPM Downloads](https://img.shields.io/npm/dm/fastify-type-provider-effect-schema.svg)](https://npmjs.org/package/fastify-type-provider-effect-schema)
+[![Build Status](https://github.com//daotl/fastify-type-provider-effect-schema/workflows/CI/badge.svg)](https://github.com//daotl/fastify-type-provider-effect-schema/actions)
 
 ## How to use?
 
 ```js
 import Fastify from "fastify";
-import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
+import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-effect-schema";
 import z from "zod";
 
 const app = Fastify()
@@ -51,7 +51,7 @@ import {
   serializerCompiler,
   validatorCompiler,
   ZodTypeProvider,
-} from 'fastify-type-provider-zod';
+} from 'fastify-type-provider-effect-schema';
 
 const app = fastify();
 app.setValidatorCompiler(validatorCompiler);
@@ -106,3 +106,7 @@ async function run() {
 
 run();
 ```
+
+## Credits
+
+This library was forked from [fastify-type-provider-effect-schema](https://github.com/turkerdev/fastify-type-provider-effect-schema).
