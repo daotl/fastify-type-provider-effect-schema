@@ -3,17 +3,9 @@
 exports[`response schema returns 400 on validation error 1`] = `
 {
   "error": "Bad Request",
-  "message": "[
-  {
-    "code": "invalid_type",
-    "expected": "string",
-    "received": "undefined",
-    "path": [
-      "name"
-    ],
-    "message": "Required"
-  }
-]",
+  "message": "error(s) found
+└─ ["name"]
+   └─ is missing",
   "statusCode": 400,
 }
 `;

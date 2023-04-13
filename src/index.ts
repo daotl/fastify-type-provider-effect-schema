@@ -1,7 +1,4 @@
-import type {
-  FastifySchemaCompiler,
-  FastifyTypeProvider,
-} from 'fastify'
+import type { FastifySchemaCompiler, FastifyTypeProvider } from 'fastify'
 import type { FastifySerializerCompiler } from 'fastify/types/schema'
 import * as S from '@effect/schema/Schema'
 import * as E from '@effect/data/Either'
@@ -20,7 +17,7 @@ type FreeformRecord = Record<string, any>
 // ]
 
 // rome-ignore lint/suspicious/noExplicitAny: <explanation>
-type  SchemaAny = S.Schema<any, any>
+type SchemaAny = S.Schema<any, any>
 
 export interface ZodTypeProvider extends FastifyTypeProvider {
   output: this['input'] extends SchemaAny ? S.To<this['input']> : never
@@ -102,8 +99,9 @@ export const validatorCompiler: FastifySchemaCompiler<SchemaAny> =
   // rome-ignore lint/suspicious/noExplicitAny: ignore
   (data): any => {
     try {
-      return { value: S.parse(schema)(data) }
+      return { value: S.parse(resolveSchema(schema))(data,  { onExcessProperty: "error", errors: "all" }) }
     } catch (error) {
+
       return { error }
     }
   }
@@ -147,6 +145,7 @@ export const serializerCompiler: FastifySerializerCompiler<
   ({ schema: maybeSchema }) =>
   (data) => {
     const schema = S.parseEither(resolveSchema(maybeSchema))
+
     const result = schema(data)
 
     if (E.isRight(result)) {

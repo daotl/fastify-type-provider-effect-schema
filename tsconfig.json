@@ -5,7 +5,8 @@
     "outDir": "dist",
     "esModuleInterop": true,
     "strict": true,
-    "exactOptionalPropertyTypes": true
+    "exactOptionalPropertyTypes": true,
+    "skipLibCheck": true
   },
   "exclude": ["./node_modules", "types/**/*.test-d.ts", "test", "dist"]
 }

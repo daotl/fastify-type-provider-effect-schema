@@ -22,7 +22,6 @@ describe('response schema', () => {
             schema: {
               response: {
                 204: S.undefined
-                //z.undefined().describe('test'),
               },
             },
             handler: (_req, res) => {
@@ -71,7 +70,7 @@ describe('response schema', () => {
   describe('correctly processes response schema (string)', () => {
     let app: FastifyInstance
     beforeAll(async () => {
-      const REPLY_SCHEMA = z.string()
+      const REPLY_SCHEMA = S.string
 
       app = Fastify()
       app.setValidatorCompiler(validatorCompiler)
@@ -101,7 +100,7 @@ describe('response schema', () => {
           },
           handler: (_req, res) => {
             // rome-ignore lint/suspicious/noExplicitAny: ignore
-            res.send({ name: 'test' } as any)
+            res.send({ name: 'test4' } as any)
           },
         })
       })
@@ -150,7 +149,7 @@ describe('response schema', () => {
           },
           handler: (_req, res) => {
             res.send({
-              name: 'test',
+              name: 'test7',
             })
           },
         })
@@ -181,7 +180,7 @@ describe('response schema', () => {
 
       expect(response.statusCode).toBe(200)
       expect(response.json()).toEqual({
-        name: 'test',
+        name: 'test7',
       })
     })
 

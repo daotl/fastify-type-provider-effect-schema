@@ -7,7 +7,7 @@ import type {
 } from 'fastify'
 import Fastify from 'fastify'
 import { expectAssignable, expectType } from 'tsd'
-import z from 'zod'
+import * as S from '@effect/schema/Schema'
 
 import { serializerCompiler, validatorCompiler } from '../src/index'
 import type { ZodTypeProvider } from '../src/index'
@@ -33,11 +33,11 @@ fastify.route({
   url: '/',
   // Define your schema
   schema: {
-    querystring: z.object({
-      name: z.string().min(4),
+    querystring: S.struct({
+      name: S.string
     }),
     response: {
-      200: z.string(),
+      200: S.string,
     },
   },
   handler: (req, res) => {

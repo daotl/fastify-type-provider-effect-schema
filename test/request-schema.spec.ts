@@ -51,12 +51,12 @@ describe('response schema', () => {
 
   it('accepts correct request', async () => {
     const response = await app.inject().get('/').query({
-      name: 'test',
+      name: 'test1',
     })
 
     expect(response.statusCode).toBe(200)
     expect(response.json()).toEqual({
-      name: 'test',
+      name: 'test1',
     })
   })
 
