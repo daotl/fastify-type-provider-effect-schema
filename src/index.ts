@@ -19,7 +19,7 @@ type FreeformRecord = Record<string, any>
 // rome-ignore lint/suspicious/noExplicitAny: <explanation>
 type SchemaAny = S.Schema<any, any>
 
-export interface ZodTypeProvider extends FastifyTypeProvider {
+export interface EffectSchemaTypeProvider extends FastifyTypeProvider {
   output: this['input'] extends SchemaAny ? S.To<this['input']> : never
 }
 
@@ -100,6 +100,9 @@ export const validatorCompiler: FastifySchemaCompiler<SchemaAny> =
   (data): any => {
     try {
       return {
+        // Need to call resolveSchema here because this check in Fastify code doesn't work for @effect/schema
+        // Causing the schema to be wrapped in `{ type:, 'object', properties: schema }`
+        // https://github.com/fastify/fastify/blob/662706bdca4c385616f3f3d1806c4b94a2a97b8a/lib/schemas.js#L65
         value: S.parse(resolveSchema(schema))(data, {
           onExcessProperty: 'error',
           errors: 'all',
@@ -120,13 +123,20 @@ obj is T & Record<K, any> {
 }
 
 function resolveSchema(
-  maybeSchema: SchemaAny | { properties: SchemaAny },
+  maybeSchema: SchemaAny | { type: 'object'; properties: SchemaAny },
 ): SchemaAny {
-  if (hasOwnProperty(maybeSchema, 'properties')) {
+  if (
+    (maybeSchema as { type: 'object' }).type === 'object' &&
+    hasOwnProperty(maybeSchema, 'properties')
+  ) {
     return maybeSchema.properties
   }
 
-  if (hasOwnProperty(maybeSchema, 'From')) {
+  if (
+    hasOwnProperty(maybeSchema, 'From') &&
+    hasOwnProperty(maybeSchema, 'To') &&
+    hasOwnProperty(maybeSchema, 'ast')
+  ) {
     return maybeSchema
   }
 
@@ -144,12 +154,11 @@ export class ResponseValidationError extends Error {
 }
 
 export const serializerCompiler: FastifySerializerCompiler<
-  SchemaAny | { properties: SchemaAny }
+  SchemaAny | { type: 'object'; properties: SchemaAny }
 > =
   ({ schema: maybeSchema }) =>
   (data) => {
     const schema = S.parseEither(resolveSchema(maybeSchema))
-
     const result = schema(data)
 
     if (E.isRight(result)) {

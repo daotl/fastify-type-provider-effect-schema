@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify'
 import Fastify from 'fastify'
 import * as S from '@effect/schema/Schema'
 
-import type { ZodTypeProvider } from '../src'
+import type { EffectSchemaTypeProvider } from '../src'
 import { serializerCompiler, validatorCompiler } from '../src'
 
 describe('response schema', () => {
@@ -15,7 +15,7 @@ describe('response schema', () => {
 
       app.after(() => {
         app
-          .withTypeProvider<ZodTypeProvider>()
+          .withTypeProvider<EffectSchemaTypeProvider>()
           .route({
             method: 'GET',
             url: '/',
@@ -77,7 +77,7 @@ describe('response schema', () => {
       app.setSerializerCompiler(serializerCompiler)
 
       app.after(() => {
-        app.withTypeProvider<ZodTypeProvider>().route({
+        app.withTypeProvider<EffectSchemaTypeProvider>().route({
           method: 'GET',
           url: '/',
           schema: {
@@ -90,7 +90,7 @@ describe('response schema', () => {
           },
         })
 
-        app.withTypeProvider<ZodTypeProvider>().route({
+        app.withTypeProvider<EffectSchemaTypeProvider>().route({
           method: 'GET',
           url: '/incorrect',
           schema: {
@@ -139,7 +139,7 @@ describe('response schema', () => {
       app.setSerializerCompiler(serializerCompiler)
 
       app.after(() => {
-        app.withTypeProvider<ZodTypeProvider>().route({
+        app.withTypeProvider<EffectSchemaTypeProvider>().route({
           method: 'GET',
           url: '/',
           schema: {
@@ -154,7 +154,7 @@ describe('response schema', () => {
           },
         })
 
-        app.withTypeProvider<ZodTypeProvider>().route({
+        app.withTypeProvider<EffectSchemaTypeProvider>().route({
           method: 'GET',
           url: '/incorrect',
           schema: {

@@ -10,23 +10,25 @@ import { expectAssignable, expectType } from 'tsd'
 import * as S from '@effect/schema/Schema'
 
 import { serializerCompiler, validatorCompiler } from '../src/index'
-import type { ZodTypeProvider } from '../src/index'
+import type { EffectSchemaTypeProvider } from '../src/index'
 
-const fastify = Fastify().withTypeProvider<ZodTypeProvider>()
+const fastify = Fastify().withTypeProvider<EffectSchemaTypeProvider>()
 
-type FastifyZodInstance = FastifyInstance<
+type FastifyEffectSchemaInstance = FastifyInstance<
   RawServerDefault,
   RawRequestDefaultExpression,
   RawReplyDefaultExpression,
   FastifyLoggerInstance,
-  ZodTypeProvider
+  EffectSchemaTypeProvider
 >
 
-expectType<FastifyZodInstance>(fastify.setValidatorCompiler(validatorCompiler))
-expectType<FastifyZodInstance>(
+expectType<FastifyEffectSchemaInstance>(
+  fastify.setValidatorCompiler(validatorCompiler),
+)
+expectType<FastifyEffectSchemaInstance>(
   fastify.setSerializerCompiler(serializerCompiler),
 )
-expectAssignable<FastifyZodInstance>(fastify)
+expectAssignable<FastifyEffectSchemaInstance>(fastify)
 
 fastify.route({
   method: 'GET',
