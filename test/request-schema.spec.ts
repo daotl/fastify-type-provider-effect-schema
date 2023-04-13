@@ -9,7 +9,7 @@ describe('response schema', () => {
   let app: FastifyInstance
   beforeAll(async () => {
     const REQUEST_SCHEMA = S.struct({
-      name: S.string
+      name: S.string,
     })
 
     app = Fastify()

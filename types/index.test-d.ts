@@ -34,7 +34,7 @@ fastify.route({
   // Define your schema
   schema: {
     querystring: S.struct({
-      name: S.string
+      name: S.string,
     }),
     response: {
       200: S.string,

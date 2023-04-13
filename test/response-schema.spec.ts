@@ -21,7 +21,7 @@ describe('response schema', () => {
             url: '/',
             schema: {
               response: {
-                204: S.undefined
+                204: S.undefined,
               },
             },
             handler: (_req, res) => {
@@ -131,7 +131,7 @@ describe('response schema', () => {
     let app: FastifyInstance
     beforeEach(async () => {
       const REPLY_SCHEMA = S.struct({
-        name: S.string
+        name: S.string,
       })
 
       app = Fastify()

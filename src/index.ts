@@ -99,9 +99,13 @@ export const validatorCompiler: FastifySchemaCompiler<SchemaAny> =
   // rome-ignore lint/suspicious/noExplicitAny: ignore
   (data): any => {
     try {
-      return { value: S.parse(resolveSchema(schema))(data,  { onExcessProperty: "error", errors: "all" }) }
+      return {
+        value: S.parse(resolveSchema(schema))(data, {
+          onExcessProperty: 'error',
+          errors: 'all',
+        }),
+      }
     } catch (error) {
-
       return { error }
     }
   }
