@@ -3,7 +3,9 @@
     "declaration": true,
     "rootDir": "src",
     "outDir": "dist",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strict": true,
+    "exactOptionalPropertyTypes": true
   },
   "exclude": ["./node_modules", "types/**/*.test-d.ts", "test", "dist"]
 }

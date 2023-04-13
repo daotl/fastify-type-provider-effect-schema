@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify'
 import Fastify from 'fastify'
-import { z } from 'zod'
+import * as S from '@effect/schema/Schema'
 
 import type { ZodTypeProvider } from '../src'
 import { serializerCompiler, validatorCompiler } from '../src'
@@ -8,8 +8,8 @@ import { serializerCompiler, validatorCompiler } from '../src'
 describe('response schema', () => {
   let app: FastifyInstance
   beforeAll(async () => {
-    const REQUEST_SCHEMA = z.object({
-      name: z.string(),
+    const REQUEST_SCHEMA = S.struct({
+      name: S.string
     })
 
     app = Fastify()

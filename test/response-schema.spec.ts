@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify'
 import Fastify from 'fastify'
-import { z } from 'zod'
+import * as S from '@effect/schema/Schema'
 
 import type { ZodTypeProvider } from '../src'
 import { serializerCompiler, validatorCompiler } from '../src'
@@ -21,7 +21,8 @@ describe('response schema', () => {
             url: '/',
             schema: {
               response: {
-                204: z.undefined().describe('test'),
+                204: S.undefined
+                //z.undefined().describe('test'),
               },
             },
             handler: (_req, res) => {
@@ -33,7 +34,7 @@ describe('response schema', () => {
             url: '/incorrect',
             schema: {
               response: {
-                204: z.undefined().describe('test'),
+                204: S.undefined,
               },
             },
             handler: (_req, res) => {
@@ -130,8 +131,8 @@ describe('response schema', () => {
   describe('correctly processes response schema (object)', () => {
     let app: FastifyInstance
     beforeEach(async () => {
-      const REPLY_SCHEMA = z.object({
-        name: z.string(),
+      const REPLY_SCHEMA = S.struct({
+        name: S.string
       })
 
       app = Fastify()
