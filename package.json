@@ -1,6 +1,6 @@
 {
   "name": "fastify-type-provider-effect-schema",
-  "version": "1.1.9",
+  "version": "0.0.1",
   "description": "@effect/schema Type Provider for Fastify@4",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,6 @@
     "build": "tsc",
     "test": "npm run build && npm run typescript && jest",
     "test:coverage": "jest --coverage",
-    "format": "prettier --write .",
     "lint": "npx rome format . && npx rome check .",
     "lint:fix": "npx rome format --write . && npx rome check --apply .",
     "typescript": "tsd",
@@ -23,7 +22,8 @@
   },
   "keywords": [
     "fastify",
-    "zod",
+    "effect",
+    "schema",
     "type",
     "provider"
   ],

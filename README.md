@@ -1,4 +1,4 @@
-# Fastify Type Provider Zod
+# Fastify Type Provider for [@effect/schema](https://github.com/effect-ts/schema)
 
 [![NPM Version](https://img.shields.io/npm/v/fastify-type-provider-effect-schema.svg)](https://npmjs.org/package/fastify-type-provider-effect-schema)
 [![NPM Downloads](https://img.shields.io/npm/dm/fastify-type-provider-effect-schema.svg)](https://npmjs.org/package/fastify-type-provider-effect-schema)
@@ -8,8 +8,9 @@
 
 ```js
 import Fastify from "fastify";
-import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-effect-schema";
-import z from "zod";
+import { serializerCompiler, validatorCompiler, EffectSchemaTypeProvider } from "fastify-type-provider-effect-schema";
+import { pipe } from "@effect/data/Function";
+import * as S from "@effect/schema/Schema";
 
 const app = Fastify()
 
@@ -17,16 +18,16 @@ const app = Fastify()
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
-app.withTypeProvider<ZodTypeProvider>().route({
+app.withTypeProvider<EffectSchemaTypeProvider>().route({
   method: "GET",
   url: "/",
   // Define your schema
   schema: {
-    querystring: z.object({
-      name: z.string().min(4),
+    querystring: S.struct({
+      name: pipe(S.string, S.minLength(4)),
     }),
     response: {
-      200: z.string(),
+      200: S.string,
     },
   },
   handler: (req, res) => {
@@ -43,14 +44,15 @@ app.listen({ port: 4949 });
 import fastify from 'fastify';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUI from '@fastify/swagger-ui';
-import { z } from 'zod';
+import { pipe } from "@effect/data/Function";
+import * as S from "@effect/schema/Schema";
 
 import {
   jsonSchemaTransform,
   createJsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
-  ZodTypeProvider,
+  EffectSchemaTypeProvider,
 } from 'fastify-type-provider-effect-schema';
 
 const app = fastify();
@@ -78,13 +80,17 @@ app.register(fastifySwaggerUI, {
   routePrefix: '/documentation',
 });
 
-const LOGIN_SCHEMA = z.object({
-  username: z.string().max(32).describe('Some description for username'),
-  password: z.string().max(32),
+const LOGIN_SCHEMA = S.struct({
+  username: pipe(
+    S.string,
+    S.maxLength(32),
+    S.description('Some description for username'),
+  ),
+  password: pipe(S.string, S.maxLength(32)),
 });
 
 app.after(() => {
-  app.withTypeProvider<ZodTypeProvider>().route({
+  app.withTypeProvider<EffectSchemaTypeProvider>().route({
     method: 'POST',
     url: '/login',
     schema: { body: LOGIN_SCHEMA },

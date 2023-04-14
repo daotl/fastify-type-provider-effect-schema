@@ -26,7 +26,7 @@ jobs:
         run: npm install
 
       - name: Install PeerDeps
-        run: npm i fastify zod
+        run: npm i fastify @effect/schema @effect/data
 
       - name: Run tests
         run: npm test
