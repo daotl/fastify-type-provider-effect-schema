@@ -115,4 +115,4 @@ run();
 
 ## Credits
 
-This library was forked from [fastify-type-provider-effect-schema](https://github.com/turkerdev/fastify-type-provider-effect-schema).
+This library was forked from [fastify-type-provider-zod](https://github.com/turkerdev/fastify-type-provider-zod).
