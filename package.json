@@ -14,7 +14,7 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "@effect/schema": "^0.12.1",
+    "@effect/schema": "^0.13.1",
     "fastify": "^4.0.0"
   },
   "repository": {
@@ -40,7 +40,7 @@
   "devDependencies": {
     "@daotl/rome-config": "0.0.1-alpha.4",
     "@effect/data": "^0.12.2",
-    "@effect/schema": "^0.12.1",
+    "@effect/schema": "^0.13.1",
     "@types/jest": "^29.2.0",
     "@types/node": "^18.11.7",
     "fastify": "^4.10.2",
