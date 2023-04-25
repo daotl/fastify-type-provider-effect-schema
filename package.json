@@ -35,21 +35,21 @@
   "homepage": "https://github.com/daotl/fastify-type-provider-effect-schema",
   "resolutions": {
     "@effect/data": "^0.12.2",
-    "@effect/schema": "^0.12.1"
+    "@effect/schema": "^0.17.2"
   },
   "devDependencies": {
     "@daotl/rome-config": "0.0.1-alpha.4",
     "@effect/data": "^0.12.2",
-    "@effect/schema": "^0.12.1",
-    "@types/jest": "^29.2.0",
-    "@types/node": "^18.11.7",
-    "fastify": "^4.10.2",
-    "jest": "^29.2.2",
+    "@effect/schema": "^0.17.2",
+    "@types/jest": "^29.5.1",
+    "@types/node": "^18.16.0",
+    "fastify": "^4.15.0",
+    "jest": "^29.5.0",
     "oas-validator": "^5.0.8",
     "rome": "^12.0.0",
-    "ts-jest": "^29.0.3",
-    "tsd": "^0.28.0",
-    "typescript": "^5.0.2"
+    "ts-jest": "^29.1.0",
+    "tsd": "^0.28.1",
+    "typescript": "^5.0.4"
   },
   "tsd": {
     "directory": "types"
