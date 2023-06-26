@@ -40,7 +40,7 @@
   "devDependencies": {
     "@daotl/rome-config": "0.0.1-alpha.4",
     "@effect/data": "^0.12.2",
-    "@effect/schema": "^0.17.2",
+    "@effect/schema": "^0.21.0",
     "@types/jest": "^29.5.1",
     "@types/node": "^18.16.0",
     "fastify": "^4.15.0",
