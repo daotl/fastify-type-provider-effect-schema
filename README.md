@@ -9,7 +9,7 @@
 ```js
 import Fastify from "fastify";
 import { serializerCompiler, validatorCompiler, EffectSchemaTypeProvider } from "fastify-type-provider-effect-schema";
-import { pipe } from "@effect/data/Function";
+import { pipe } from "effect";
 import * as S from "@effect/schema/Schema";
 
 const app = Fastify()
@@ -44,7 +44,7 @@ app.listen({ port: 4949 });
 import fastify from 'fastify';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUI from '@fastify/swagger-ui';
-import { pipe } from "@effect/data/Function";
+import { pipe } from "effect";
 import * as S from "@effect/schema/Schema";
 
 import {

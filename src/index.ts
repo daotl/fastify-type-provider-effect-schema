@@ -1,7 +1,7 @@
+import * as S from '@effect/schema/Schema'
+import { Either as E } from 'effect'
 import type { FastifySchemaCompiler, FastifyTypeProvider } from 'fastify'
 import type { FastifySerializerCompiler } from 'fastify/types/schema'
-import * as S from '@effect/schema/Schema'
-import * as E from '@effect/data/Either'
 
 // rome-ignore lint/suspicious/noExplicitAny: ignore
 type FreeformRecord = Record<string, any>
@@ -20,7 +20,7 @@ type FreeformRecord = Record<string, any>
 type SchemaAny = S.Schema<any, any>
 
 export interface EffectSchemaTypeProvider extends FastifyTypeProvider {
-  output: this['input'] extends SchemaAny ? S.To<this['input']> : never
+  output: this['input'] extends SchemaAny ? S.Schema.To<this['input']> : never
 }
 
 // interface Schema extends FastifySchema {
@@ -103,7 +103,7 @@ export const validatorCompiler: FastifySchemaCompiler<SchemaAny> =
         // Need to call resolveSchema here because this check in Fastify code doesn't work for @effect/schema
         // Causing the schema to be wrapped in `{ type:, 'object', properties: schema }`
         // https://github.com/fastify/fastify/blob/662706bdca4c385616f3f3d1806c4b94a2a97b8a/lib/schemas.js#L65
-        value: S.parse(resolveSchema(schema))(data, {
+        value: S.parseSync(resolveSchema(schema))(data, {
           onExcessProperty: 'error',
           errors: 'all',
         }),
@@ -131,13 +131,11 @@ function resolveSchema(
   ) {
     return maybeSchema.properties
   }
-
   if (
-    hasOwnProperty(maybeSchema, 'From') &&
-    hasOwnProperty(maybeSchema, 'To') &&
-    hasOwnProperty(maybeSchema, 'ast')
+    hasOwnProperty(maybeSchema, 'ast') &&
+    typeof maybeSchema.ast._tag === 'string'
   ) {
-    return maybeSchema
+    return maybeSchema as SchemaAny
   }
 
   throw new Error(`Invalid schema passed: ${JSON.stringify(maybeSchema)}`)
