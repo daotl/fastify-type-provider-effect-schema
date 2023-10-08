@@ -1,6 +1,6 @@
 {
   "name": "fastify-type-provider-effect-schema",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "@effect/schema Type Provider for Fastify@4",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
